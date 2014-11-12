@@ -19,26 +19,6 @@ MERCURIAL_SUPERUSERS = [ "admin1", "admin2", "admin3", "admin4" ]
 JIRA_HOST = "http://jiraserver.example.com"
 JIRA_USER = "jirauser"
 JIRA_PASSWORD = "UltraSuperSafePassword"
-AK_47="""
-
-                          .-----------------TTTT_-----_______
-                        /''''''''''(______O] ----------____  \______/]_
-     __...---'\"\"\"\_ --''   Q                               ___________@
- |'''                   ._   _______________=---------"\"\"\"\"\"\"
- |                ..--''|   l L |_l   |
- |          ..--''      .  /-___j '   '
- |    ..--''           /  ,       '   '
- |--''                /           `    \\
-                      L__'         \    -
-                                    -    '-.
-                                     '.    /
-                                       '-./
-
-Script courtesy of the ISIS Python Sysadmin Crew
-Join us!!
-ALLAHU AKBAR!!!
-	"""
-
 
 def connect_jira(jira_server, jira_user, jira_password,ui):
     """
@@ -152,8 +132,8 @@ def checkAllCreateBranch(ui, repo, node, **kwargs):
         else:
             syslog.syslog('User %s entering in admin mode for branch name: %s' % (repo[rev].user().split(' ', 1)[0],repo[rev].branch()))
             ui.status('=====\n')
+            ui.status('You are a SuperAdmin\n')
             ui.status('Remember, With great power comes great responsibility\n')
-            ui.status(AK_47)
             ui.status('\n=====\n')        
             jclient = connect_jira(JIRA_HOST, JIRA_USER, JIRA_PASSWORD,ui)
             p = re.compile('\w+-\d+')
