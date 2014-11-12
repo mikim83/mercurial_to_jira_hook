@@ -38,6 +38,7 @@ Installation
    pretxnchangegroup.jirakeycheckall = python:~/.hg/jirabranchcheck.py:checkAllCreateBranch
 </pre>
 </div>
-3. Set script variables `MERCURIAL_HOST`, `MERCURIAL_REPO`, `MERCURIAL_SUPERUSERS`, `JIRA_HOST`, `JIRA_USER`, `JIRA_PASSWORD` in jirabranchcheck.py
+3. Set script variables `MERCURIAL_HOST`, `MERCURIAL_REPO_PATH`, `MERCURIAL_REPO`, `MERCURIAL_SUPERUSERS`, `JIRA_HOST`, `JIRA_USER`, `JIRA_PASSWORD` in jirabranchcheck.py
+MERCURIAL variables are used to construct links to revions, files, etc... Links are contructed this way: `MERCURIAL_HOST`/`MERCURIAL_REPO_PATH`/`MERCURIAL_REPO`
 
 
