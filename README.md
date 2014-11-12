@@ -42,6 +42,11 @@ Installation
 MERCURIAL variables are used to construct links to revsions, files, etc... Links are contructed this way: `MERCURIAL_HOST`/`MERCURIAL_REPO_PATH`/`MERCURIAL_REPO`
 
 
+Screenshot
+------------
+![Screenshot](https://raw.githubusercontent.com/mikim83/mercurial_to_jira_hook/master/screenshot/comment%20screenshot.png "Jira Comment example")
+
+
 TODO
 ------------
 1. Create exception for branches without jira issue on it´s name.
