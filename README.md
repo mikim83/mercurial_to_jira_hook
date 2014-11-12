@@ -10,6 +10,20 @@ Features:
 	- When pushing code, it checks the branch name againts Jira server. If the branch name doesn't have a valid Jira issue, the push is blocked.
 	- Admin list of users that can create branches with any name (usefull for merging in default)
 
+
+Pre-requisites
+------------
+1. Mercurial server with hgweb installed
+2. Jira server with jsql activated ( It should work with v5.0 o superior)
+3. Pyhton 2.6 or superior recomended
+4. Jira python library installed on mercurial server
+<div>
+<pre>
+	pip install jira
+</pre>
+</div>
+
+
 Installation
 ------------
 1. Copy `jirabranchcheck.py` to ~/.hg (or any dir you like)
@@ -24,6 +38,6 @@ Installation
    pretxnchangegroup.jirakeycheckall = python:~/.hg/jirabranchcheck.py:checkAllCreateBranch
 </pre>
 </div>
-3. Set your JIRA project keys in array `JIRA_PROJECTS` in jirabranchcheck.py
+3. Set script variables `MERCURIAL_HOST`, `MERCURIAL_REPO`, `MERCURIAL_SUPERUSERS`, `JIRA_HOST`, `JIRA_USER`, `JIRA_PASSWORD` in jirabranchcheck.py
 
 
