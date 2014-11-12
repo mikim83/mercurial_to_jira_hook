@@ -5,11 +5,11 @@ based on https://github.com/johnner/mercurial-jira-commit-message-hook
 
 This Mercurial hook adds comments extracted from commits to jira issues based on branch name.
 
-Features:
+Features
 ------------
-	1. Checks the newly created branch name against Jira server. If doesn't exitst, it blocks the push.
-	2. When pushing code, it checks the branch name againts Jira server. If the branch name doesn't have a valid Jira issue, the push is blocked.
-	3. Admin list of users that can create branches with any name (usefull for merging in default)
+1. Checks the newly created branch name against Jira server. If doesn't exitst, it blocks the push.
+2. When pushing code, it checks the branch name againts Jira server. If the branch name doesn't have a valid Jira issue, the push is blocked.
+3. Admin list of users that can create branches with any name (usefull for merging in default).
 
 
 Pre-requisites
