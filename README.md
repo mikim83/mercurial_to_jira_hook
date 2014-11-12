@@ -39,6 +39,6 @@ Installation
 </pre>
 </div>
 3. Set script variables `MERCURIAL_HOST`, `MERCURIAL_REPO_PATH`, `MERCURIAL_REPO`, `MERCURIAL_SUPERUSERS`, `JIRA_HOST`, `JIRA_USER`, `JIRA_PASSWORD` in jirabranchcheck.py
-MERCURIAL variables are used to construct links to revions, files, etc... Links are contructed this way: `MERCURIAL_HOST`/`MERCURIAL_REPO_PATH`/`MERCURIAL_REPO`
+MERCURIAL variables are used to construct links to revsions, files, etc... Links are contructed this way: `MERCURIAL_HOST`/`MERCURIAL_REPO_PATH`/`MERCURIAL_REPO`
 
 
