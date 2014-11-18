@@ -10,7 +10,7 @@ Features
 1. Checks the newly created branch name against Jira server. If doesn't exitst, it blocks the push.
 2. When pushing code, it checks the branch name againts Jira server. If the branch name doesn't have a valid Jira issue, the push is blocked.
 3. Admin list of users that can create branches with any name (usefull for merging in default).
-
+4. Optionally send commit statistics to statsd 
 
 Pre-requisites
 ------------
@@ -21,6 +21,12 @@ Pre-requisites
 <div>
 <pre>
 	pip install jira
+</pre>
+</div>
+5. Statsd python library installed on mercurial server for commit statistics
+<div>
+<pre>
+	pip install python-statsd
 </pre>
 </div>
 
@@ -40,7 +46,7 @@ Installation
 </div>
 3. Set script variables `MERCURIAL_HOST`, `MERCURIAL_REPO_PATH`, `MERCURIAL_REPO`, `MERCURIAL_SUPERUSERS`, `JIRA_HOST`, `JIRA_USER`, `JIRA_PASSWORD` in jirabranchcheck.py
 MERCURIAL variables are used to construct links to revsions, files, etc... Links are contructed this way: `MERCURIAL_HOST`/`MERCURIAL_REPO_PATH`/`MERCURIAL_REPO`
-
+4. If you want statsd support set variables STATSD_SERVER, STATSD_PORT, STATSD_COUNTER . If one of them is empty, statistics are disabled.
 
 Screenshot
 ------------
@@ -51,4 +57,5 @@ TODO
 ------------
 1. Create exception for branches without jira issue on it´s name.
 2. Add comments control. What if we also want a jira issue on the commit comment?
-3. Rule the world
+3. DONE - Add statsd/graphite statistics.
+4. Rule the world

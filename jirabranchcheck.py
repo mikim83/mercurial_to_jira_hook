@@ -7,9 +7,12 @@ import json
 import base64
 import syslog
 import sys
+import statsd
+
 
 
 #If the hook returns True - hook fails
+COUNTER = 0
 BAD_COMMIT = True
 OK = False
 MERCURIAL_HOST = "http://mercurial-server.example.com"
@@ -19,6 +22,12 @@ MERCURIAL_SUPERUSERS = [ "admin1", "admin2", "admin3", "admin4" ]
 JIRA_HOST = "http://jiraserver.example.com"
 JIRA_USER = "jirauser"
 JIRA_PASSWORD = "UltraSuperSafePassword"
+
+#Set STATSD variables empty if do not want statistics
+STATSD_SERVER = "statsd-server.example.com"
+STATSD_PORT = "8125"
+STATSD_COUNTER= "counter.name"
+
 
 def connect_jira(jira_server, jira_user, jira_password,ui):
     """
@@ -44,16 +53,10 @@ def connect_jira(jira_server, jira_user, jira_password,ui):
 
 
 def checkCreateBranch(ui, repo, **kwargs):
-    """Checks create branch for matching naming rule:
-    Every branch must include JIRA issue key
-    Example:
-    PRJ-42 - added meaning of life
+   if STATSD_SERVER && STATSD_PORT && STATSD_COUNTER:
+        statsd.Connection.set_defaults(host=STATSD_SERVER, port=STATSD_PORT, sample_rate=1, disabled=False)
+        COUNTER = statsd.Counter(STATSD_COUNTER)
 
-    Include this hook in .hg/hgrc
-
-    [hooks]
-    pretxncommit.jirakeycheck = python:/path/jirakeycheck.py:checkCreateBranch
-    """
     syslog.syslog('Entering in checkCreateBranch')
     hg_branch_name = repo['tip'].branch()
     if repo['tip'].user().split(' ', 1)[0] not in MERCURIAL_SUPERUSERS:
@@ -62,22 +65,19 @@ def checkCreateBranch(ui, repo, **kwargs):
             #reject commit transaction
             return BAD_COMMIT
         else:
+            COUNTER += 1
             return OK
     else:
+        COUNTER += 1
         return OK
 
 
 def checkAllCreateBranch(ui, repo, node, **kwargs):
-    """
-    For pull: checks commit messages for all incoming commits
-    It is good for master repo, when you pull a banch of commits
-
-    [hooks]
-    pretxnchangegroup.jirakeycheckall =
-        python:/path/jirakeycheck.py:checkAllCreateBranch
-    """
-
     syslog.syslog('Entering in checkAllCreateBranch')
+    if STATSD_SERVER && STATSD_PORT && STATSD_COUNTER:
+        statsd.Connection.set_defaults(host=STATSD_SERVER, port=STATSD_PORT, sample_rate=1, disabled=False)
+        COUNTER = statsd.Counter(STATSD_COUNTER)
+
     for rev in xrange(repo[node].rev(), len(repo)):
         if (repo[rev].user().split(' ', 1)[0] not in MERCURIAL_SUPERUSERS) :
             syslog.syslog('User commit from: %s' % repo[rev].user().split(' ', 1)[0])
@@ -127,6 +127,7 @@ def checkAllCreateBranch(ui, repo, node, **kwargs):
                     
                     commentbody=commentbody+"""{panel}"""
                     jclient.add_comment(commentkey, commentbody)
+                COUNTER += 1
                 return OK
 
         else:
@@ -166,20 +167,13 @@ def checkAllCreateBranch(ui, repo, node, **kwargs):
                     
                 commentbody=commentbody+"""{panel}"""
                 jclient.add_comment(commentkey, commentbody)
+            COUNTER += 1
             return OK 
+    COUNTER += 1
     return OK
 
 
 def checkBranch(msg,ui):
-    """
-    Checks branch name for matching regex
-
-    Correct message example:
-    PRJ-123 - your commit message here
-
-    #"PRJ-123" is necessary prefix here
-    """
-    
 
     is_correct = False
     
