@@ -37,16 +37,15 @@ Installation
 2. Add the following lines to $HOME/.hgrc
 <div>
 <pre>
-
 [hooks]
    pretxncommit.jirabranchcheck = python:~/.hg/jirabranchcheck.py:checkCreateBranch
    pretxnchangegroup.jirakeycheckall = python:~/.hg/jirabranchcheck.py:checkAllCreateBranch
-
 </pre>
 </div>
 3. Set script variables `MERCURIAL_HOST`, `MERCURIAL_REPO_PATH`, `MERCURIAL_REPO`, `MERCURIAL_SUPERUSERS`, `JIRA_HOST`, `JIRA_USER`, `JIRA_PASSWORD` in jirabranchcheck.py
 MERCURIAL variables are used to construct links to revsions, files, etc... Links are contructed this way: `MERCURIAL_HOST`/`MERCURIAL_REPO_PATH`/`MERCURIAL_REPO`
-4. If you want statsd support set variables STATSD_SERVER, STATSD_PORT, STATSD_COUNTER . If one of them is empty, statistics are disabled.
+<br>
+4. If you want statsd support set variables `STATSD_SERVER`, `STATSD_PORT`, `STATSD_COUNTER`. If one of them is empty, statistics are disabled.
 
 Screenshot
 ------------
