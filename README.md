@@ -49,8 +49,8 @@ MERCURIAL variables are used to construct links to revsions, files, etc... Links
 
 Screenshot
 ------------
-![Screenshot](https://raw.githubusercontent.com/mikim83/mercurial_to_jira_hook/master/screenshot/comment%20screenshot.png "Jira Comment example")
-
+![Screenshot1](https://raw.githubusercontent.com/mikim83/mercurial_to_jira_hook/master/screenshot/comment%20screenshot.png "Jira Comment example")
+![Screenshot2](https://raw.githubusercontent.com/mikim83/mercurial_to_jira_hook/master/screenshot/commit%20stats.png "Graphite commit stats example")
 
 TODO
 ------------
