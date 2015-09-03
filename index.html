@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Mercurial to jira hook by mikim83</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Mercurial to jira hook</h1>
+        <p>mercurial hook that adds comments to jira issues based on branch name</p>
+
+        <p class="view"><a href="https://github.com/mikim83/mercurial_to_jira_hook">View the Project on GitHub <small>mikim83/mercurial_to_jira_hook</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mikim83/mercurial_to_jira_hook/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mikim83/mercurial_to_jira_hook/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mikim83/mercurial_to_jira_hook">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="mercurial_to_jira_hook" class="anchor" href="#mercurial_to_jira_hook" aria-hidden="true"><span class="octicon octicon-link"></span></a>mercurial_to_jira_hook</h1>
+
+<p>based on <a href="https://github.com/johnner/mercurial-jira-commit-message-hook">https://github.com/johnner/mercurial-jira-commit-message-hook</a></p>
+
+<p>This Mercurial hook adds comments extracted from commits to jira issues based on branch name.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ol>
+<li>Checks the newly created branch name against Jira server. If doesn't exitst, it blocks the push.</li>
+<li>When pushing code, it checks the branch name againts Jira server. If the branch name doesn't have a valid Jira issue, the push is blocked.</li>
+<li>Admin list of users that can create branches with any name (usefull for merging in default).</li>
+<li>Optionally send commit statistics to statsd </li>
+</ol>
+
+<h2>
+<a id="pre-requisites" class="anchor" href="#pre-requisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pre-requisites</h2>
+
+<ol>
+<li>Mercurial server with hgweb installed</li>
+<li>Jira server with jsql activated ( It should work with v5.0 o superior)</li>
+<li>Pyhton 2.6 or superior recomended</li>
+<li>Jira python library installed on mercurial server
+<div>
+<pre>
+pip install jira
+</pre>
+</div>
+</li>
+<li>Statsd python library installed on mercurial server for commit statistics
+<div>
+<pre>
+pip install python-statsd
+</pre>
+</div>
+</li>
+</ol>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<ol>
+<li>Copy <code>jirabranchcheck.py</code> to ~/.hg (or any dir you like)</li>
+<li>Add the following lines to $HOME/.hgrc
+<div>
+<pre>
+[hooks]
+pretxncommit.jirabranchcheck = python:~/.hg/jirabranchcheck.py:checkCreateBranch
+pretxnchangegroup.jirakeycheckall = python:~/.hg/jirabranchcheck.py:checkAllCreateBranch
+</pre>
+</div>
+</li>
+<li>Set script variables <code>MERCURIAL_HOST</code>, <code>MERCURIAL_REPO_PATH</code>, <code>MERCURIAL_REPO</code>, <code>MERCURIAL_SUPERUSERS</code>, <code>JIRA_HOST</code>, <code>JIRA_USER</code>, <code>JIRA_PASSWORD</code> in jirabranchcheck.py
+MERCURIAL variables are used to construct links to revsions, files, etc... Links are contructed this way: <code>MERCURIAL_HOST</code>/<code>MERCURIAL_REPO_PATH</code>/<code>MERCURIAL_REPO</code>
+<br>
+</li>
+<li>If you want statsd support set variables <code>STATSD_SERVER</code>, <code>STATSD_PORT</code>, <code>STATSD_COUNTER</code>. If one of them is empty, statistics are disabled.</li>
+</ol>
+
+<h2>
+<a id="screenshot" class="anchor" href="#screenshot" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshot</h2>
+
+<p><img src="https://raw.githubusercontent.com/mikim83/mercurial_to_jira_hook/master/screenshot/comment%20screenshot.png" alt="Screenshot1" title="Jira Comment example">
+<img src="https://raw.githubusercontent.com/mikim83/mercurial_to_jira_hook/master/screenshot/commit%20stats.png" alt="Screenshot2" title="Graphite commit stats example"></p>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<ol>
+<li>Create exception for branches without jira issue on it´s name.</li>
+<li>Add comments control. What if we also want a jira issue on the commit comment?</li>
+<li>DONE - Add statsd/graphite statistics.</li>
+<li>Rule the world</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mikim83">mikim83</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
